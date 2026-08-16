@@ -1,0 +1,32 @@
+{
+  "watford fc": {
+    "id": "133624",
+    "resolvedName": "Watford",
+    "resolvedAt": "2026-08-16T14:34:26.633Z"
+  },
+  "southampton fc": {
+    "id": "134778",
+    "resolvedName": "Southampton",
+    "resolvedAt": "2026-08-16T14:34:29.212Z"
+  },
+  "arsenal fc": {
+    "id": "147630",
+    "resolvedName": "Tunari",
+    "resolvedAt": "2026-08-16T14:34:31.507Z"
+  },
+  "man city": {
+    "id": "133613",
+    "resolvedName": "Manchester City",
+    "resolvedAt": "2026-08-16T14:34:33.491Z"
+  },
+  "racing santander": {
+    "id": "133726",
+    "resolvedName": "Racing de Santander",
+    "resolvedAt": "2026-08-16T14:34:35.086Z"
+  },
+  "villarreal cf": {
+    "id": "133740",
+    "resolvedName": "Villarreal",
+    "resolvedAt": "2026-08-16T14:34:36.679Z"
+  }
+}
