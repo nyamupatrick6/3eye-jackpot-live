@@ -1,0 +1,46 @@
+name: Source Data
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # every 30 minutes
+  workflow_dispatch: {}       # manual "Run workflow" button in the Actions tab
+  push:
+    paths:
+      - 'data/fixtures-watchlist.json'   # run immediately when the Tracker pushes a fresh list
+
+permissions:
+  contents: write            # needed to commit sourced files back to the repo
+
+concurrency:
+  group: source-data
+  cancel-in-progress: false  # let a run finish rather than racing the next scheduled tick
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Source team form + head-to-head from TheSportsDB
+        run: node scripts/source-scores.js
+
+      - name: Source live context from Google News RSS
+        run: node scripts/source-news.js
+
+      - name: Commit sourced data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/teams data/h2h data/live state/team-id-cache.json state/unresolved-teams.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Source data: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
