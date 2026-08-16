@@ -1,0 +1,24 @@
+{
+  "notes": "Written by the Tracker's PUSH FIXTURES action.",
+  "generatedAt": "2026-08-16T03:45:37.209Z",
+  "fixtures": [
+    {
+      "home": "Watford FC",
+      "away": "Southampton FC",
+      "date": "16/08/26 15:30",
+      "league": "England - Championship"
+    },
+    {
+      "home": "Arsenal FC",
+      "away": "Man City",
+      "date": "16/08/26 17:00",
+      "league": "Eng - Community Shield"
+    },
+    {
+      "home": "Racing Santander",
+      "away": "Villarreal CF",
+      "date": "16/08/26 18:00",
+      "league": "Spain - LaLiga"
+    }
+  ]
+}
