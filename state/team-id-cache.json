@@ -28,5 +28,85 @@
     "id": "133740",
     "resolvedName": "Villarreal",
     "resolvedAt": "2026-08-16T14:34:36.679Z"
+  },
+  "stoke city": {
+    "id": "133609",
+    "resolvedName": "Stoke City",
+    "resolvedAt": "2026-08-16T14:52:33.426Z"
+  },
+  "swansea city": {
+    "id": "133614",
+    "resolvedName": "Swansea City",
+    "resolvedAt": "2026-08-16T14:52:35.177Z"
+  },
+  "portsmouth fc": {
+    "id": "133629",
+    "resolvedName": "Portsmouth",
+    "resolvedAt": "2026-08-16T14:52:36.589Z"
+  },
+  "qpr": {
+    "id": "133605",
+    "resolvedName": "Queens Park Rangers",
+    "resolvedAt": "2026-08-16T14:52:38.095Z"
+  },
+  "charlton athletic": {
+    "id": "133851",
+    "resolvedName": "Charlton Athletic",
+    "resolvedAt": "2026-08-16T14:52:39.575Z"
+  },
+  "derby county": {
+    "id": "133627",
+    "resolvedName": "Derby County",
+    "resolvedAt": "2026-08-16T14:52:41.074Z"
+  },
+  "bristol city": {
+    "id": "133621",
+    "resolvedName": "Bristol City",
+    "resolvedAt": "2026-08-16T14:52:42.438Z"
+  },
+  "millwall fc": {
+    "id": "133634",
+    "resolvedName": "Millwall",
+    "resolvedAt": "2026-08-16T14:52:43.807Z"
+  },
+  "konyaspor": {
+    "id": "133835",
+    "resolvedName": "Konyaspor",
+    "resolvedAt": "2026-08-16T14:52:45.339Z"
+  },
+  "caykur rizespor": {
+    "id": "133885",
+    "resolvedName": "Rizespor",
+    "resolvedAt": "2026-08-16T14:52:46.729Z"
+  },
+  "sheffield utd": {
+    "id": "133811",
+    "resolvedName": "Sheffield United",
+    "resolvedAt": "2026-08-16T14:52:48.160Z"
+  },
+  "birmingham": {
+    "id": "133597",
+    "resolvedName": "Birmingham City",
+    "resolvedAt": "2026-08-16T14:52:49.597Z"
+  },
+  "deportivo alaves": {
+    "id": "134221",
+    "resolvedName": "Deportivo Alavés",
+    "resolvedAt": "2026-08-16T14:52:54.342Z"
+  },
+  "getafe cf": {
+    "id": "133731",
+    "resolvedName": "Getafe",
+    "resolvedAt": "2026-08-16T14:52:55.712Z"
+  },
+  "sevilla fc": {
+    "id": "133735",
+    "resolvedName": "Sevilla",
+    "resolvedAt": "2026-08-16T14:52:57.138Z"
+  },
+  "rayo vallecano": {
+    "id": "133728",
+    "resolvedName": "Rayo Vallecano",
+    "resolvedAt": "2026-08-16T14:52:58.532Z"
   }
 }
