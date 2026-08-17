@@ -1,53 +1,95 @@
 {
   "notes": "Written by the Tracker's PUSH FIXTURES action.",
-  "generatedAt": "2026-08-16T14:52:20.655Z",
+  "generatedAt": "2026-08-17T13:40:34.065Z",
   "fixtures": [
     {
-      "home": "Stoke City",
-      "away": "Swansea City",
-      "date": "15/08/26 17:00",
-      "league": "England - Championship"
+      "home": "Nottingham Forest",
+      "away": "Leeds United",
+      "date": "22/08/26 17:00",
+      "league": "Engla - Premier League"
     },
     {
-      "home": "Portsmouth FC",
-      "away": "Qpr",
-      "date": "15/08/26 17:00",
-      "league": "England - Championship"
+      "home": "Everton FC",
+      "away": "Crystal Palace",
+      "date": "22/08/26 17:00",
+      "league": "Engla - Premier League"
     },
     {
-      "home": "Charlton Athletic",
-      "away": "Derby County",
-      "date": "15/08/26 17:00",
-      "league": "England - Championship"
+      "home": "Ipswich Town",
+      "away": "Sunderland AFC",
+      "date": "22/08/26 17:00",
+      "league": "Engla - Premier League"
     },
     {
-      "home": "Bristol City",
-      "away": "Millwall FC",
-      "date": "15/08/26 17:00",
-      "league": "England - Championship"
+      "home": "Brentford FC",
+      "away": "Tottenham Hotspur",
+      "date": "22/08/26 19:30",
+      "league": "Engla - Premier League"
     },
     {
-      "home": "Konyaspor",
-      "away": "Caykur Rizespor",
-      "date": "15/08/26 19:00",
-      "league": "Turkiye - Super Lig"
+      "home": "Parma Calcio",
+      "away": "Cagliari Calcio",
+      "date": "22/08/26 21:45",
+      "league": "Italy - Serie A"
     },
     {
-      "home": "Sheffield Utd",
-      "away": "Birmingham",
-      "date": "15/08/26 19:30",
-      "league": "England - Championship"
+      "home": "Le Mans",
+      "away": "Stade Brest 29",
+      "date": "22/08/26 21:45",
+      "league": "France - Ligue 1"
     },
     {
-      "home": "Deportivo Alaves",
-      "away": "Getafe CF",
-      "date": "15/08/26 20:30",
-      "league": "Spain - LaLiga"
+      "home": "Toulouse FC",
+      "away": "Olympique Lyon",
+      "date": "22/08/26 21:45",
+      "league": "France - Ligue 1"
     },
     {
-      "home": "Sevilla FC",
-      "away": "Rayo Vallecano",
-      "date": "15/08/26 22:30",
+      "home": "ESTAC Troyes",
+      "away": "Paris FC",
+      "date": "22/08/26 21:45",
+      "league": "France - Ligue 1"
+    },
+    {
+      "home": "OGC Nice",
+      "away": "FC Lorient",
+      "date": "22/08/26 21:45",
+      "league": "France - Ligue 1"
+    },
+    {
+      "home": "FC Viktoria Cologne",
+      "away": "1 FC Nuremberg",
+      "date": "22/08/26 16:30",
+      "league": "Germany - DFB Pokal"
+    },
+    {
+      "home": "Brighton",
+      "away": "Aston Villa",
+      "date": "23/08/26 16:00",
+      "league": "Engla - Premier League"
+    },
+    {
+      "home": "Venezia FC",
+      "away": "US Lecce",
+      "date": "23/08/26 19:30",
+      "league": "Italy - Serie A"
+    },
+    {
+      "home": "Greuther Furth",
+      "away": "VfL Bochum",
+      "date": "23/08/26 14:00",
+      "league": "Germany - DFB Pokal"
+    },
+    {
+      "home": "Rot-Weiss Essen",
+      "away": "FC St. Pauli",
+      "date": "23/08/26 19:00",
+      "league": "Germany - DFB Pokal"
+    },
+    {
+      "home": "Valencia CF",
+      "away": "Celta",
+      "date": "22/08/26 20:30",
       "league": "Spain - LaLiga"
     }
   ]
