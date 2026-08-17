@@ -108,5 +108,140 @@
     "id": "133728",
     "resolvedName": "Rayo Vallecano",
     "resolvedAt": "2026-08-16T14:52:58.532Z"
+  },
+  "nottingham forest": {
+    "id": "148600",
+    "resolvedName": "Nottingham Forest",
+    "resolvedAt": "2026-08-17T13:40:49.133Z"
+  },
+  "leeds united": {
+    "id": "133635",
+    "resolvedName": "Leeds United",
+    "resolvedAt": "2026-08-17T13:40:50.353Z"
+  },
+  "everton fc": {
+    "id": "140225",
+    "resolvedName": "Everton FC Women",
+    "resolvedAt": "2026-08-17T13:40:51.663Z"
+  },
+  "crystal palace": {
+    "id": "133632",
+    "resolvedName": "Crystal Palace",
+    "resolvedAt": "2026-08-17T13:40:52.882Z"
+  },
+  "ipswich town": {
+    "id": "133622",
+    "resolvedName": "Ipswich Town",
+    "resolvedAt": "2026-08-17T13:40:54.100Z"
+  },
+  "brentford fc": {
+    "id": "134355",
+    "resolvedName": "Brentford",
+    "resolvedAt": "2026-08-17T13:40:56.742Z"
+  },
+  "tottenham hotspur": {
+    "id": "133616",
+    "resolvedName": "Tottenham Hotspur",
+    "resolvedAt": "2026-08-17T13:40:58.043Z"
+  },
+  "parma calcio": {
+    "id": "135728",
+    "resolvedName": "Parma",
+    "resolvedAt": "2026-08-17T13:40:59.440Z"
+  },
+  "cagliari calcio": {
+    "id": "134783",
+    "resolvedName": "Cagliari",
+    "resolvedAt": "2026-08-17T13:41:00.753Z"
+  },
+  "le mans": {
+    "id": "133848",
+    "resolvedName": "Le Mans",
+    "resolvedAt": "2026-08-17T13:41:02.065Z"
+  },
+  "stade brest 29": {
+    "id": "133704",
+    "resolvedName": "Brest",
+    "resolvedAt": "2026-08-17T13:41:03.377Z"
+  },
+  "toulouse fc": {
+    "id": "133703",
+    "resolvedName": "Toulouse",
+    "resolvedAt": "2026-08-17T13:41:04.685Z"
+  },
+  "olympique lyon": {
+    "id": "133713",
+    "resolvedName": "Lyon",
+    "resolvedAt": "2026-08-17T13:41:05.996Z"
+  },
+  "estac troyes": {
+    "id": "134789",
+    "resolvedName": "Troyes",
+    "resolvedAt": "2026-08-17T13:41:07.308Z"
+  },
+  "paris fc": {
+    "id": "135465",
+    "resolvedName": "Paris FC",
+    "resolvedAt": "2026-08-17T13:41:08.618Z"
+  },
+  "ogc nice": {
+    "id": "133712",
+    "resolvedName": "Nice",
+    "resolvedAt": "2026-08-17T13:41:09.934Z"
+  },
+  "fc lorient": {
+    "id": "133715",
+    "resolvedName": "Lorient",
+    "resolvedAt": "2026-08-17T13:41:11.241Z"
+  },
+  "1 fc nuremberg": {
+    "id": "133659",
+    "resolvedName": "Nürnberg",
+    "resolvedAt": "2026-08-17T13:41:13.864Z"
+  },
+  "brighton": {
+    "id": "140222",
+    "resolvedName": "Brighton WFC",
+    "resolvedAt": "2026-08-17T13:41:15.175Z"
+  },
+  "aston villa": {
+    "id": "133601",
+    "resolvedName": "Aston Villa",
+    "resolvedAt": "2026-08-17T13:41:16.481Z"
+  },
+  "venezia fc": {
+    "id": "134234",
+    "resolvedName": "Venezia",
+    "resolvedAt": "2026-08-17T13:41:17.794Z"
+  },
+  "us lecce": {
+    "id": "133678",
+    "resolvedName": "Lecce",
+    "resolvedAt": "2026-08-17T13:41:19.106Z"
+  },
+  "greuther furth": {
+    "id": "134099",
+    "resolvedName": "Greuther Fürth",
+    "resolvedAt": "2026-08-17T13:41:20.416Z"
+  },
+  "vfl bochum": {
+    "id": "133839",
+    "resolvedName": "Bochum",
+    "resolvedAt": "2026-08-17T13:41:21.723Z"
+  },
+  "fc st. pauli": {
+    "id": "152832",
+    "resolvedName": "Paulista",
+    "resolvedAt": "2026-08-17T13:41:24.338Z"
+  },
+  "valencia cf": {
+    "id": "133725",
+    "resolvedName": "Valencia",
+    "resolvedAt": "2026-08-17T13:41:25.647Z"
+  },
+  "celta": {
+    "id": "133937",
+    "resolvedName": "Celta Vigo",
+    "resolvedAt": "2026-08-17T13:41:26.959Z"
   }
 }
