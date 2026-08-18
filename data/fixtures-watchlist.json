@@ -1,9 +1,9 @@
 {
   "notes": "Written by the Tracker's PUSH FIXTURES action.",
-  "generatedAt": "2026-08-17T13:40:34.065Z",
+  "generatedAt": "2026-08-18T17:53:38.880Z",
   "fixtures": [
     {
-      "home": "Nottingham Forest",
+      "home": "Nottm Forest",
       "away": "Leeds United",
       "date": "22/08/26 17:00",
       "league": "Engla - Premier League"
@@ -81,7 +81,7 @@
       "league": "Germany - DFB Pokal"
     },
     {
-      "home": "Rot-Weiss Essen",
+      "home": "Essen",
       "away": "FC St. Pauli",
       "date": "23/08/26 19:00",
       "league": "Germany - DFB Pokal"
