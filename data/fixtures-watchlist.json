@@ -1,12 +1,84 @@
 {
   "notes": "Written by the Tracker's PUSH FIXTURES action.",
-  "generatedAt": "2026-08-19T04:43:36.362Z",
+  "generatedAt": "2026-08-19T12:17:41.924Z",
   "fixtures": [
     {
-      "home": "Nottm Forest",
-      "away": "Leeds United",
-      "date": "22/08/26 17:00",
-      "league": "Engla - Premier League"
+      "home": "Josko Ried",
+      "away": "Grazer AK 1902",
+      "date": "21/08/26 20:30",
+      "league": "Austria - Bundesliga"
+    },
+    {
+      "home": "FC Dordrecht",
+      "away": "Roda Kerkrade",
+      "date": "21/08/26 21:00",
+      "league": "Netherlands - Eerste Divisie"
+    },
+    {
+      "home": "Pau FC",
+      "away": "Nancy-Lorraine",
+      "date": "21/08/26 21:00",
+      "league": "France - Ligue 2"
+    },
+    {
+      "home": "USL Dunkerque",
+      "away": "Montpellier HSC",
+      "date": "21/08/26 21:00",
+      "league": "France - Ligue 2"
+    },
+    {
+      "home": "Boulogne",
+      "away": "Red Star FC",
+      "date": "21/08/26 21:00",
+      "league": "France - Ligue 2"
+    },
+    {
+      "home": "KSC Lokeren Temse",
+      "away": "KAS Eupen",
+      "date": "21/08/26 21:00",
+      "league": "Belgium - Challenger Pro League"
+    },
+    {
+      "home": "Vicenza",
+      "away": "US Catanzaro",
+      "date": "21/08/26 21:30",
+      "league": "Italy - Serie B"
+    },
+    {
+      "home": "Inverness Caledonian Thistle FC",
+      "away": "Partick Thistle",
+      "date": "21/08/26 21:30",
+      "league": "Scotland - League One"
+    },
+    {
+      "home": "Admira",
+      "away": "First Vienna",
+      "date": "21/08/26 21:30",
+      "league": "Austria - 2. Liga"
+    },
+    {
+      "home": "KS Lechia Gdansk",
+      "away": "Pogon Siedlce",
+      "date": "21/08/26 21:30",
+      "league": "Poland - Ekstraklasa"
+    },
+    {
+      "home": "Sligo Rovers FC",
+      "away": "Waterford FC",
+      "date": "21/08/26 22:00",
+      "league": "Ireland - League of Ireland Premier Division"
+    },
+    {
+      "home": "Asd Alcione Milano",
+      "away": "Renate",
+      "date": "21/08/26 22:00",
+      "league": "Unclassified / Other"
+    },
+    {
+      "home": "FC Giugliano 1928",
+      "away": "Scafatese Calcio 1922",
+      "date": "21/08/26 22:00",
+      "league": "Unclassified / Other"
     }
   ]
 }
