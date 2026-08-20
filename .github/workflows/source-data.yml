@@ -2,7 +2,7 @@ name: Source Data
 
 on:
   schedule:
-    - cron: '*/30 * * * *'   # every 30 minutes
+    - cron: '5 */4 * * *'    # every 4 hours (offset 5 min from source-odds.yml's :00 so they don't both start at once)
   workflow_dispatch: {}       # manual "Run workflow" button in the Actions tab
   push:
     paths:
