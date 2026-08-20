@@ -33,6 +33,17 @@ jobs:
       - name: Source live context from Google News RSS
         run: node scripts/source-news.js
 
+      - name: Source match conditions (weather, injuries, congestion, form)
+        env:
+          # Optional — https://www.api-football.com free tier, 100 req/day.
+          # Weather (Open-Meteo) needs no key and still runs without this.
+          # Missing key just skips injuries/congestion/form for every
+          # fixture, it never fails the run. MUST run after the news step
+          # above — it merges its own bullets into what source-news.js just
+          # wrote rather than overwriting data/live/*.json.
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: node scripts/source-conditions.js
+
       - name: Commit sourced data
         run: |
           git config user.name "github-actions[bot]"
