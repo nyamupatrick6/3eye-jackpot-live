@@ -13,8 +13,9 @@ Tracker (paste/load matches)
         ▼
 data/fixtures-watchlist.json
         │
-        ├─ scripts/source-scores.js → TheSportsDB → data/teams/*.json, data/h2h/*.json
-        ├─ scripts/source-news.js   → Google News RSS → data/live/*.json
+        ├─ scripts/source-scores.js     → TheSportsDB → data/teams/*.json, data/h2h/*.json
+        ├─ scripts/source-news.js       → Google News RSS → data/live/*.json (writes fresh)
+        ├─ scripts/source-conditions.js → Open-Meteo + API-Football → data/live/*.json (merges in)
         ▼
 Tracker's background poll (fetchRepoTeamForm / fetchRepoH2H / fetchRepoLiveContext)
         │  fills Stage 1 (additive form/H2H) and Stage 2 (scored live context)
@@ -40,6 +41,27 @@ side/points/verdict in here:
 ```json
 { "bullets": ["Arsenal injury update — BBC, 2026-08-15."], "fetchedAt": "2026-08-15T19:18:18.859Z" }
 ```
+Two scripts write this file and MUST run in this order (already wired in
+`source-data.yml`): `source-news.js` writes it fresh from that run's news
+scan, then `source-conditions.js` reads what news just wrote, strips only
+its own `[weather]`/`[injuries]`/`[congestion]`/`[form]`/`[coverage]`-tagged
+bullets from the *previous* run, and appends fresh ones — so neither script
+ever wipes the other's bullets out. If you ever add a third writer of this
+file, it needs the same read-strip-append pattern, not a plain overwrite.
+
+**`data/team-meta/{slug}.json`** — manual per-team metadata that can't be
+sourced automatically, feeding `source-conditions.js`:
+```json
+{ "city": "Ried im Innkreis", "lat": 48.2075, "lon": 13.4894, "apiFootballId": null, "apiFootballLeagueId": null }
+```
+`lat`/`lon` (home stadium) power weather; `apiFootballId` powers injuries,
+congestion/rest, and form; `apiFootballLeagueId` sharpens the form lookup
+for leagues where the free-tier season numbering is ambiguous. A team with
+no file, or a file missing a given field, just gets fewer bullets for that
+factor — same graceful-degradation pattern as an unresolved team in
+`source-scores.js`. Fill these in for your highest-volume teams first; find
+`apiFootballId` by searching a team name at
+[api-football.com's Teams docs](https://www.api-football.com/documentation-v3#tag/Teams/operation/get-teams).
 
 **`data/odds/{homeSlug}-vs-{awaySlug}.json`** — 1X2 decimal odds from
 one bookmaker (Pinnacle preferred, falls back to whichever the API
@@ -66,6 +88,28 @@ Nothing to configure for scores/news — TheSportsDB uses the free/shared
 test key (`123`) and Google News RSS needs no key. Optional env vars (set
 as repo Variables): `SPORTSDB_KEY`, `NEWS_LOCALE` (default `en-US`),
 `NEWS_COUNTRY` (default `US`).
+
+**Conditions (weather/injuries/congestion/form) — weather needs nothing,
+the rest need one optional key.**
+
+1. Sign up free at [api-football.com](https://www.api-football.com)
+   (100 req/day tier), copy your key.
+2. Repo Settings > Secrets and variables > Actions > New repository
+   secret: name it `API_FOOTBALL_KEY`.
+3. `.github/workflows/source-data.yml` picks it up automatically. Without
+   it, `source-conditions.js` still runs and still writes weather bullets
+   (Open-Meteo needs no key) — it just skips injuries/congestion/form for
+   every fixture rather than failing.
+4. Add `data/team-meta/{slug}.json` files for your teams (see the contract
+   section above) — without one, a team gets weather only if `lat`/`lon`
+   happen to be filled, and no injuries/congestion/form at all.
+
+**Budget note:** each fixture can cost up to 6 API-Football calls (3 per
+side: injuries, fixtures, statistics). At 100 req/day and a 30-minute
+schedule, a large slate will exhaust the free tier fast — this is exactly
+why `source-conditions.js` skips any team silently rather than erroring
+when its team-meta or the key is missing; roll out `team-meta` files
+gradually rather than backfilling every team at once.
 
 **Odds is different — it needs a real signup and a GitHub secret.**
 
