@@ -11,6 +11,13 @@ on:
   schedule:
     - cron: '0 */4 * * *'   # every 4 hours — see the credit-budget note above before shortening this
   workflow_dispatch: {}
+  push:
+    paths:
+      - 'data/fixtures-watchlist.json'   # run immediately when the Tracker pushes a fresh list —
+      # same instant-sync trigger source-data.yml has. Credit-budget note above gets tighter now:
+      # every PUSH FIXTURES click also costs odds-API credits, not just the 4-hour schedule. If
+      # you push several times a day, watch state/unmapped-leagues.json and your the-odds-api.com
+      # dashboard — trim SPORT_KEY_ALIASES or drop this push trigger if the monthly quota gets tight.
 
 permissions:
   contents: write
