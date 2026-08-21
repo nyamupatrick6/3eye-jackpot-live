@@ -39,6 +39,31 @@ const SPORTSDB_BASE = `https://www.thesportsdb.com/api/v1/json/${SPORTSDB_KEY}`;
 const REQUEST_DELAY_MS = 1200; // be polite to a shared free-tier key
 const LAST_N = 5;
 
+// TheSportsDB's searchteams.php wants a club's full/official name and often
+// misses common short forms used in odds feeds and fixture lists (e.g. the
+// tracker saw "Nottm Forest" and "Sunderland AFC" both come back unresolved
+// — see state/unresolved-teams.json). This map ONLY changes what string
+// gets sent to TheSportsDB's search; the cache key, the resolved team
+// record, and — critically — the slug used for every written filename
+// still come from the ORIGINAL name in fixtures-watchlist.json. That keeps
+// this script's output filenames byte-for-byte aligned with what
+// source-news.js, source-conditions.js, and the Tracker's own
+// slugifyRepoName() independently compute from that same original name.
+// Add to this incrementally as new unresolved short-forms show up in
+// state/unresolved-teams.json — it's a lookup table, not a scraper.
+const TEAM_SEARCH_ALIASES = {
+  'nottm forest': 'Nottingham Forest',
+  'sunderland afc': 'Sunderland',
+  'man utd': 'Manchester United',
+  'man united': 'Manchester United',
+  'man city': 'Manchester City',
+  'spurs': 'Tottenham Hotspur',
+  'wolves': 'Wolverhampton Wanderers',
+  'newcastle': 'Newcastle United',
+  'leeds': 'Leeds United',
+  'nott\'m forest': 'Nottingham Forest',
+};
+
 // Byte-for-byte equivalent to the Tracker's slugifyRepoName() — MUST stay
 // in sync. If the Tracker's version ever changes, this one has to change
 // with it or every fetch will 404.
@@ -80,7 +105,8 @@ async function resolveTeamId(teamName, cache) {
   if (cache[key] && cache[key].id) return cache[key];
 
   await sleep(REQUEST_DELAY_MS);
-  const url = `${SPORTSDB_BASE}/searchteams.php?t=${encodeURIComponent(teamName)}`;
+  const searchTerm = TEAM_SEARCH_ALIASES[key] || teamName;
+  const url = `${SPORTSDB_BASE}/searchteams.php?t=${encodeURIComponent(searchTerm)}`;
   let data;
   try {
     data = await fetchJson(url);
