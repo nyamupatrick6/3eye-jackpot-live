@@ -18,6 +18,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { filterSourceableFixtures } = require('./lib/fixture-window');
 
 const ROOT = path.join(__dirname, '..');
 const FIXTURES_PATH = path.join(ROOT, 'data', 'fixtures-watchlist.json');
@@ -121,7 +122,8 @@ async function bulletsForQuery(query) {
 
 async function main() {
   const watchlist = readJson(FIXTURES_PATH, { fixtures: [] });
-  const fixtures = Array.isArray(watchlist.fixtures) ? watchlist.fixtures : [];
+  const allFixtures = Array.isArray(watchlist.fixtures) ? watchlist.fixtures : [];
+  const fixtures = filterSourceableFixtures(allFixtures, 'source-news');
 
   if (fixtures.length === 0) {
     console.log('fixtures-watchlist.json has no fixtures — nothing to source. Exiting.');
