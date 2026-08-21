@@ -343,5 +343,15 @@
     "id": "143046",
     "resolvedName": "Giugliano",
     "resolvedAt": "2026-08-19T12:18:27.741Z"
+  },
+  "nottm forest": {
+    "id": "148600",
+    "resolvedName": "Nottingham Forest",
+    "resolvedAt": "2026-08-21T00:28:23.045Z"
+  },
+  "sunderland afc": {
+    "id": "133603",
+    "resolvedName": "Sunderland",
+    "resolvedAt": "2026-08-21T00:28:24.420Z"
   }
 }
