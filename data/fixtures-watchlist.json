@@ -1,67 +1,7 @@
 {
   "notes": "Written by the Tracker's PUSH FIXTURES action.",
-  "generatedAt": "2026-08-21T12:16:04.707Z",
+  "generatedAt": "2026-08-22T18:38:16.022Z",
   "fixtures": [
-    {
-      "home": "Nottm Forest",
-      "away": "Leeds United",
-      "date": "22/08/26 17:00",
-      "league": "Engla - Premier League"
-    },
-    {
-      "home": "Everton FC",
-      "away": "Crystal Palace",
-      "date": "22/08/26 17:00",
-      "league": "Engla - Premier League"
-    },
-    {
-      "home": "Ipswich Town",
-      "away": "Sunderland AFC",
-      "date": "22/08/26 17:00",
-      "league": "Engla - Premier League"
-    },
-    {
-      "home": "Brentford FC",
-      "away": "Tottenham Hotspur",
-      "date": "22/08/26 19:30",
-      "league": "Engla - Premier League"
-    },
-    {
-      "home": "Parma Calcio",
-      "away": "Cagliari Calcio",
-      "date": "22/08/26 21:45",
-      "league": "Italy - Serie A"
-    },
-    {
-      "home": "Le Mans",
-      "away": "Stade Brest 29",
-      "date": "22/08/26 21:45",
-      "league": "France - Ligue 1"
-    },
-    {
-      "home": "Toulouse FC",
-      "away": "Olympique Lyon",
-      "date": "22/08/26 21:45",
-      "league": "France - Ligue 1"
-    },
-    {
-      "home": "ESTAC Troyes",
-      "away": "Paris FC",
-      "date": "22/08/26 21:45",
-      "league": "France - Ligue 1"
-    },
-    {
-      "home": "OGC Nice",
-      "away": "FC Lorient",
-      "date": "22/08/26 21:45",
-      "league": "France - Ligue 1"
-    },
-    {
-      "home": "FC Viktoria Cologne",
-      "away": "1 FC Nuremberg",
-      "date": "22/08/26 16:30",
-      "league": "Germany - DFB Pokal"
-    },
     {
       "home": "Brighton",
       "away": "Aston Villa",
@@ -69,28 +9,16 @@
       "league": "Engla - Premier League"
     },
     {
-      "home": "Venezia FC",
-      "away": "US Lecce",
-      "date": "23/08/26 19:30",
-      "league": "Italy - Serie A"
-    },
-    {
-      "home": "Greuther Furth",
-      "away": "VfL Bochum",
-      "date": "23/08/26 14:00",
-      "league": "Germany - DFB Pokal"
-    },
-    {
-      "home": "Rot-Weiss Essen",
+      "home": "Essen",
       "away": "FC St. Pauli",
       "date": "23/08/26 19:00",
       "league": "Germany - DFB Pokal"
     },
     {
-      "home": "Valencia CF",
-      "away": "Celta",
-      "date": "22/08/26 20:30",
-      "league": "Spain - LaLiga"
+      "home": "Venezia FC",
+      "away": "US Lecce",
+      "date": "23/08/26 19:30",
+      "league": "Italy - Serie A"
     }
   ]
 }
