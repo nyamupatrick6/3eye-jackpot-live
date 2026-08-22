@@ -29,6 +29,19 @@
  * teams), fetches that sport_key's odds ONCE per run (not once per
  * fixture), then matches fixtures to events by team name.
  *
+ * FIX (stage-independence upgrade session): the Tracker's own fixture
+ * league tags come through as "{Country} - {Competition}" (e.g. "Engla -
+ * Premier League", "Spain - LaLiga", "France - Ligue 1"), confirmed from
+ * a real data/fixtures-watchlist.json sample where every single fixture
+ * used that shape. sportKeyForLeague() below now also tries matching
+ * against just the segment AFTER the last " - ", in addition to the
+ * full raw string, before giving up — still an EXACT match against
+ * SPORT_KEY_ALIASES on that segment, never a substring match, so the
+ * Kenyan/English "Premier League" collision risk that exact-matching
+ * was designed to avoid is unaffected. Before this fix, a-country-prefixed
+ * league tag could never match anything here — every fixture would land
+ * in unmapped-leagues.json regardless of how complete SPORT_KEY_ALIASES was.
+ *
  * OUTPUT — data/odds/{homeSlug}-vs-{awaySlug}.json:
  *   { home: 2.10, draw: 3.40, away: 3.20, bookmaker: "Pinnacle", fetchedAt: "..." }
  * Field names (home/draw/away, decimal odds) deliberately match the
@@ -76,11 +89,26 @@ const SPORT_KEY_ALIASES = {
   soccer_brazil_campeonato: ['brasileirao', 'brazilian serie a', 'campeonato brasileiro'],
   soccer_mexico_ligamx: ['liga mx', 'mexican liga mx'],
 };
+
+// FIX: try the raw (lowercased/trimmed) league string first, exactly as
+// before. If that misses AND the string contains " - " (the Tracker's
+// "{Country} - {Competition}" tagging format, confirmed from a real
+// fixtures-watchlist.json sample: "Engla - Premier League", "Spain -
+// LaLiga", "France - Ligue 1"), retry against just the segment after the
+// LAST " - " — still a full exact match against the alias list, not a
+// substring match, so this doesn't reopen the Kenya/England collision
+// the exact-match design was built to avoid.
 function sportKeyForLeague(league) {
-  const key = (league || '').toLowerCase().trim();
-  if (!key) return null;
+  const raw = (league || '').toLowerCase().trim();
+  if (!raw) return null;
   for (const [sportKey, aliases] of Object.entries(SPORT_KEY_ALIASES)) {
-    if (aliases.includes(key)) return sportKey;
+    if (aliases.includes(raw)) return sportKey;
+  }
+  if (raw.includes(' - ')) {
+    const afterCountry = raw.split(' - ').pop().trim();
+    for (const [sportKey, aliases] of Object.entries(SPORT_KEY_ALIASES)) {
+      if (aliases.includes(afterCountry)) return sportKey;
+    }
   }
   return null;
 }
@@ -106,8 +134,7 @@ function sleep(ms) {
 // same note in source-scores.js/source-news.js. Must stay in sync.
 function slugifyRepoName(name) {
   return (name || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
