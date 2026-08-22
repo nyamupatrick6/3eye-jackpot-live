@@ -32,10 +32,30 @@
  * eventually poll for it.
  *
  * API-Football's free tier is 100 req/day. Each fixture costs up to 3 calls
- * per side (injuries, fixtures, statistics) = up to 6 calls/fixture. Budget
- * your team-meta rollout and workflow frequency accordingly — this script
- * skips a side cleanly (no error) whenever that team has no
- * data/team-meta/{slug}.json or no apiFootballId in it yet.
+ * per side (injuries, fixtures, statistics) = up to 6 calls/fixture, PLUS
+ * now up to 1 more per side for auto-resolution the first time a team is
+ * seen (cached after that, see AUTO-RESOLUTION below). Budget your
+ * workflow frequency accordingly.
+ *
+ * AUTO-RESOLUTION (stage-independence upgrade session): previously, f7/f8/
+ * f9/f16 (4 of the ~13 Hidden Factor Matrix factors — the single biggest
+ * coverage gap identified when auditing this pipeline) were gated entirely
+ * behind a hand-created data/team-meta/{slug}.json file per team, with
+ * apiFootballId looked up manually on api-football.com's docs site. That
+ * doesn't scale past a handful of teams. This version auto-resolves
+ * apiFootballId via API-Football's own /teams?search= endpoint the first
+ * time a team is seen, caching the result in
+ * state/apifootball-id-cache.json (same pattern as source-scores.js's
+ * state/team-id-cache.json for TheSportsDB). A hand-written
+ * data/team-meta/{slug}.json entry, if one exists, still takes priority
+ * for any field it sets — this is a fallback for teams nobody has
+ * hand-configured yet, not a replacement for deliberate overrides.
+ *
+ * Weather (f12) similarly no longer strictly requires a hand-filled
+ * lat/lon: if team-meta has a `city` but no lat/lon, or API-Football's
+ * team-search response includes a venue city, this now geocodes that city
+ * via Open-Meteo's free, keyless geocoding endpoint and caches the result
+ * in state/geocode-cache.json.
  */
 
 const fs = require('fs');
@@ -46,6 +66,8 @@ const ROOT = path.join(__dirname, '..');
 const FIXTURES_PATH = path.join(ROOT, 'data', 'fixtures-watchlist.json');
 const LIVE_DIR = path.join(ROOT, 'data', 'live');
 const TEAM_META_DIR = path.join(ROOT, 'data', 'team-meta');
+const APIFB_CACHE_PATH = path.join(ROOT, 'state', 'apifootball-id-cache.json');
+const GEOCODE_CACHE_PATH = path.join(ROOT, 'state', 'geocode-cache.json');
 
 const API_FOOTBALL_KEY = process.env.API_FOOTBALL_KEY || '';
 const API_FOOTBALL_BASE = 'https://v3.football.api-sports.io';
@@ -88,13 +110,91 @@ async function fetchJson(url, opts) {
   return res.json();
 }
 
-function teamMeta(teamName) {
+// =====================================================================
+// AUTO-RESOLUTION — apiFootballId via API-Football's own team search,
+// cached across runs. Hand-written data/team-meta/{slug}.json still wins
+// for any field it explicitly sets; this only fills in what's missing.
+// =====================================================================
+async function resolveApiFootballTeam(teamName, cache) {
+  const key = teamName.trim().toLowerCase();
+  if (cache[key]) return cache[key]; // cached hit OR cached miss (id:null) — either way, don't re-query
+  if (!API_FOOTBALL_KEY) return null;
+  await sleep(REQUEST_DELAY_MS);
+  try {
+    const url = `${API_FOOTBALL_BASE}/teams?search=${encodeURIComponent(teamName)}`;
+    const data = await fetchJson(url, { headers: { 'x-apisports-key': API_FOOTBALL_KEY } });
+    const resp = data && Array.isArray(data.response) ? data.response : [];
+    if (!resp.length) {
+      console.warn(`[apifootball-resolve] ${teamName}: no match — check spelling, or add a manual data/team-meta entry`);
+      cache[key] = { id: null, resolvedAt: new Date().toISOString() };
+      return cache[key];
+    }
+    const match = resp[0];
+    const entry = {
+      id: match.team ? match.team.id : null,
+      resolvedName: match.team ? match.team.name : null,
+      city: match.venue ? match.venue.city : null,
+      resolvedAt: new Date().toISOString(),
+    };
+    cache[key] = entry;
+    return entry;
+  } catch (e) {
+    console.error(`[apifootball-resolve] ${teamName}: ${e.message}`);
+    return null; // network/API error — don't cache a permanent miss for a transient failure
+  }
+}
+
+// =====================================================================
+// AUTO-RESOLUTION — city -> lat/lon via Open-Meteo's free, keyless
+// geocoding endpoint, cached across runs. Only called when we have a city
+// name but no explicit lat/lon (hand-written team-meta lat/lon always wins).
+// =====================================================================
+async function geocodeCity(city, cache) {
+  const key = city.trim().toLowerCase();
+  if (cache[key]) return cache[key];
+  await sleep(150);
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+    const data = await fetchJson(url);
+    const r = data && Array.isArray(data.results) ? data.results[0] : null;
+    if (!r) {
+      cache[key] = { lat: null, lon: null };
+      return cache[key];
+    }
+    cache[key] = { lat: r.latitude, lon: r.longitude };
+    return cache[key];
+  } catch (e) {
+    console.error(`[geocode] ${city}: ${e.message}`);
+    return { lat: null, lon: null };
+  }
+}
+
+// Merges the hand-written data/team-meta/{slug}.json (if any) with
+// auto-resolved apiFootballId/city/lat/lon. Hand-written fields always
+// take priority — this only fills gaps, never overrides a deliberate
+// manual entry.
+async function resolveTeamMeta(teamName, apifbCache, geoCache) {
   const slug = slugifyRepoName(teamName);
-  return readJson(path.join(TEAM_META_DIR, `${slug}.json`), null);
-  // Expected shape: { city, lat, lon, apiFootballId, apiFootballLeagueId }
-  // A team with no file, or a file missing the field a given sourcer
-  // needs, just yields fewer bullets for that fixture — same
-  // graceful-degradation pattern as unresolved teams in source-scores.js.
+  const manual = readJson(path.join(TEAM_META_DIR, `${slug}.json`), {}) || {};
+  const meta = { ...manual };
+
+  if (!meta.apiFootballId) {
+    const auto = await resolveApiFootballTeam(teamName, apifbCache);
+    if (auto && auto.id) {
+      meta.apiFootballId = auto.id;
+      if (!meta.city && auto.city) meta.city = auto.city;
+    }
+  }
+
+  if ((typeof meta.lat !== 'number' || typeof meta.lon !== 'number') && meta.city) {
+    const geo = await geocodeCity(meta.city, geoCache);
+    if (typeof geo.lat === 'number' && typeof geo.lon === 'number') {
+      meta.lat = geo.lat;
+      meta.lon = geo.lon;
+    }
+  }
+
+  return meta;
 }
 
 // Tracker logs fixture dates as "dd/mm/yy HH:mm" — same format
@@ -117,11 +217,11 @@ function currentSeasonYear() {
 
 // =====================================================================
 // f12 — Weather. Open-Meteo, free & keyless. Needs the HOME team's
-// stadium lat/lon from team-meta. Forecast horizon is ~16 days — fixtures
-// further out than that correctly get no weather bullet yet.
+// stadium lat/lon, from team-meta (manual or now auto-geocoded from
+// city). Forecast horizon is ~16 days — fixtures further out than that
+// correctly get no weather bullet yet.
 // =====================================================================
-async function sourceWeather(fixture) {
-  const meta = teamMeta(fixture.home);
+async function sourceWeather(fixture, meta) {
   if (!meta || typeof meta.lat !== 'number' || typeof meta.lon !== 'number') return [];
   const kickoff = parseFixtureDate(fixture.date);
   if (!kickoff) return [];
@@ -152,11 +252,11 @@ async function sourceWeather(fixture) {
 // =====================================================================
 // f7 — Injuries/suspensions. API-Football.
 // =====================================================================
-async function sourceInjuries(fixture) {
+async function sourceInjuries(fixture, metaBySide) {
   if (!API_FOOTBALL_KEY) return [];
   const bullets = [];
   for (const side of ['home', 'away']) {
-    const meta = teamMeta(fixture[side]);
+    const meta = metaBySide[side];
     if (!meta || !meta.apiFootballId) continue;
     await sleep(REQUEST_DELAY_MS);
     try {
@@ -178,13 +278,13 @@ async function sourceInjuries(fixture) {
 // =====================================================================
 // f8, f16 — Fixture congestion & rest. API-Football, last 5 fixtures.
 // =====================================================================
-async function sourceCongestionAndRest(fixture) {
+async function sourceCongestionAndRest(fixture, metaBySide) {
   if (!API_FOOTBALL_KEY) return [];
   const bullets = [];
   const kickoff = parseFixtureDate(fixture.date);
   if (!kickoff) return [];
   for (const side of ['home', 'away']) {
-    const meta = teamMeta(fixture[side]);
+    const meta = metaBySide[side];
     if (!meta || !meta.apiFootballId) continue;
     await sleep(REQUEST_DELAY_MS);
     try {
@@ -219,11 +319,11 @@ async function sourceCongestionAndRest(fixture) {
 // form string). Not true xG — understat.com has no official API; swap
 // this for a scraper later if that precision turns out to matter.
 // =====================================================================
-async function sourceTeamForm(fixture) {
+async function sourceTeamForm(fixture, metaBySide) {
   if (!API_FOOTBALL_KEY) return [];
   const bullets = [];
   for (const side of ['home', 'away']) {
-    const meta = teamMeta(fixture[side]);
+    const meta = metaBySide[side];
     if (!meta || !meta.apiFootballId) continue;
     await sleep(REQUEST_DELAY_MS);
     try {
@@ -275,12 +375,23 @@ async function main() {
   }
 
   if (!API_FOOTBALL_KEY) {
-    console.warn('API_FOOTBALL_KEY not set — injuries/congestion/form will be skipped for every fixture (weather still runs, it needs no key).');
+    console.warn('API_FOOTBALL_KEY not set — injuries/congestion/form (and auto-resolution) will be skipped for every fixture (weather still runs if lat/lon is already known — it needs no key).');
   }
+
+  const apifbCache = readJson(APIFB_CACHE_PATH, {});
+  const geoCache = readJson(GEOCODE_CACHE_PATH, {});
 
   console.log(`Sourcing conditions for ${fixtures.length} fixture(s)...`);
   let written = 0;
   const seenPairs = new Set();
+  const resolvedMetaCache = {}; // teamName -> resolved meta, so each unique team is only resolved once per run
+
+  async function metaFor(teamName) {
+    if (resolvedMetaCache[teamName]) return resolvedMetaCache[teamName];
+    const meta = await resolveTeamMeta(teamName, apifbCache, geoCache);
+    resolvedMetaCache[teamName] = meta;
+    return meta;
+  }
 
   for (const fixture of fixtures) {
     if (!fixture.home || !fixture.away) continue;
@@ -288,10 +399,14 @@ async function main() {
     if (seenPairs.has(pairKey)) continue;
     seenPairs.add(pairKey);
 
-    const weather = await sourceWeather(fixture);
-    const injuries = await sourceInjuries(fixture);
-    const congestion = await sourceCongestionAndRest(fixture);
-    const form = await sourceTeamForm(fixture);
+    const homeMeta = await metaFor(fixture.home);
+    const awayMeta = await metaFor(fixture.away);
+    const metaBySide = { home: homeMeta, away: awayMeta };
+
+    const weather = await sourceWeather(fixture, homeMeta);
+    const injuries = await sourceInjuries(fixture, metaBySide);
+    const congestion = await sourceCongestionAndRest(fixture, metaBySide);
+    const form = await sourceTeamForm(fixture, metaBySide);
     const counts = {
       weather: weather.length,
       injuries: injuries.length,
@@ -312,6 +427,9 @@ async function main() {
     });
     written++;
   }
+
+  writeJson(APIFB_CACHE_PATH, apifbCache);
+  writeJson(GEOCODE_CACHE_PATH, geoCache);
 
   console.log(`Updated conditions bullets in ${written} live-context file(s).`);
 }
