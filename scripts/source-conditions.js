@@ -70,7 +70,27 @@ const APIFB_CACHE_PATH = path.join(ROOT, 'state', 'apifootball-id-cache.json');
 const GEOCODE_CACHE_PATH = path.join(ROOT, 'state', 'geocode-cache.json');
 
 const API_FOOTBALL_KEY = process.env.API_FOOTBALL_KEY || '';
-const API_FOOTBALL_BASE = 'https://v3.football.api-sports.io';
+// DIAGNOSTIC FIX: API-Football has two separate signup paths that need
+// different hosts/headers — sign up directly at api-football.com and your
+// key only works against v3.football.api-sports.io with an x-apisports-key
+// header (the 'native' default below); sign up via the RapidAPI
+// marketplace instead and your key only works against
+// api-football-v1.p.rapidapi.com with x-rapidapi-key + x-rapidapi-host
+// headers. Pairing the wrong key with the wrong host/header silently 401s
+// or 403s — every team fails to resolve, and every fixture ends up with
+// 0/4 conditions groups, with nothing in the log to explain why unless the
+// response body is printed (see fetchJson below, which now does). Set
+// API_FOOTBALL_PROVIDER=rapidapi as a repo Variable if you signed up
+// through RapidAPI; defaults to 'native' (api-football.com direct).
+const API_FOOTBALL_PROVIDER = (process.env.API_FOOTBALL_PROVIDER || 'native').toLowerCase();
+const API_FOOTBALL_BASE = API_FOOTBALL_PROVIDER === 'rapidapi'
+  ? 'https://api-football-v1.p.rapidapi.com/v3'
+  : 'https://v3.football.api-sports.io';
+function apiFootballHeaders() {
+  return API_FOOTBALL_PROVIDER === 'rapidapi'
+    ? { 'x-rapidapi-key': API_FOOTBALL_KEY, 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com' }
+    : { 'x-apisports-key': API_FOOTBALL_KEY };
+}
 const REQUEST_DELAY_MS = 300;
 
 // Byte-for-byte equivalent to the Tracker's slugifyRepoName() and the copy
@@ -106,7 +126,10 @@ function sleep(ms) {
 
 async function fetchJson(url, opts) {
   const res = await fetch(url, opts);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`HTTP ${res.status} for ${url} — ${body.slice(0, 300)}`);
+  }
   return res.json();
 }
 
@@ -122,7 +145,7 @@ async function resolveApiFootballTeam(teamName, cache) {
   await sleep(REQUEST_DELAY_MS);
   try {
     const url = `${API_FOOTBALL_BASE}/teams?search=${encodeURIComponent(teamName)}`;
-    const data = await fetchJson(url, { headers: { 'x-apisports-key': API_FOOTBALL_KEY } });
+    const data = await fetchJson(url, { headers: apiFootballHeaders() });
     const resp = data && Array.isArray(data.response) ? data.response : [];
     if (!resp.length) {
       console.warn(`[apifootball-resolve] ${teamName}: no match — check spelling, or add a manual data/team-meta entry`);
@@ -261,7 +284,7 @@ async function sourceInjuries(fixture, metaBySide) {
     await sleep(REQUEST_DELAY_MS);
     try {
       const url = `${API_FOOTBALL_BASE}/injuries?team=${meta.apiFootballId}&season=${currentSeasonYear()}`;
-      const data = await fetchJson(url, { headers: { 'x-apisports-key': API_FOOTBALL_KEY } });
+      const data = await fetchJson(url, { headers: apiFootballHeaders() });
       const resp = data && Array.isArray(data.response) ? data.response : [];
       if (!resp.length) continue;
       const names = resp.slice(0, 5).map(r => r.player && r.player.name).filter(Boolean);
@@ -289,7 +312,7 @@ async function sourceCongestionAndRest(fixture, metaBySide) {
     await sleep(REQUEST_DELAY_MS);
     try {
       const url = `${API_FOOTBALL_BASE}/fixtures?team=${meta.apiFootballId}&last=5`;
-      const data = await fetchJson(url, { headers: { 'x-apisports-key': API_FOOTBALL_KEY } });
+      const data = await fetchJson(url, { headers: apiFootballHeaders() });
       const resp = data && Array.isArray(data.response) ? data.response : [];
       if (!resp.length) continue;
       const recentMatches = resp.filter(f => {
@@ -329,7 +352,7 @@ async function sourceTeamForm(fixture, metaBySide) {
     try {
       const league = meta.apiFootballLeagueId || '';
       const url = `${API_FOOTBALL_BASE}/teams/statistics?team=${meta.apiFootballId}&season=${currentSeasonYear()}&league=${league}`;
-      const data = await fetchJson(url, { headers: { 'x-apisports-key': API_FOOTBALL_KEY } });
+      const data = await fetchJson(url, { headers: apiFootballHeaders() });
       const resp = data ? data.response : null;
       if (!resp || !resp.form) continue;
       const gf = resp.goals && resp.goals.for && resp.goals.for.average ? resp.goals.for.average.total : '?';
