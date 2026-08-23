@@ -1,0 +1,32 @@
+{
+  "brighton": {
+    "id": 51,
+    "resolvedName": "Brighton",
+    "city": "Falmer, East Sussex",
+    "resolvedAt": "2026-08-23T01:49:28.590Z"
+  },
+  "aston villa": {
+    "id": 66,
+    "resolvedName": "Aston Villa",
+    "city": "Birmingham",
+    "resolvedAt": "2026-08-23T01:49:29.867Z"
+  },
+  "essen": {
+    "id": 1621,
+    "resolvedName": "Rot-Weiß Essen",
+    "city": "Essen",
+    "resolvedAt": "2026-08-23T01:49:33.601Z"
+  },
+  "fc st. pauli": {
+    "id": null,
+    "resolvedAt": "2026-08-23T01:49:34.387Z"
+  },
+  "venezia fc": {
+    "id": null,
+    "resolvedAt": "2026-08-23T01:49:36.899Z"
+  },
+  "us lecce": {
+    "id": null,
+    "resolvedAt": "2026-08-23T01:49:37.404Z"
+  }
+}
