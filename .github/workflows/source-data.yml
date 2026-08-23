@@ -1,5 +1,4 @@
 name: Source Data
-
 on:
   schedule:
     - cron: '5 */4 * * *'    # every 4 hours (offset 5 min from source-odds.yml's :00 so they don't both start at once)
@@ -7,32 +6,25 @@ on:
   push:
     paths:
       - 'data/fixtures-watchlist.json'   # run immediately when the Tracker pushes a fresh list
-
 permissions:
   contents: write            # needed to commit sourced files back to the repo
-
 concurrency:
   group: source-data
   cancel-in-progress: false  # let a run finish rather than racing the next scheduled tick
-
 jobs:
   source:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Source team form + head-to-head from TheSportsDB
         run: node scripts/source-scores.js
-
       - name: Source live context from Google News RSS
         run: node scripts/source-news.js
-
       - name: Source match conditions (weather, injuries, congestion, form)
         env:
           # Optional — https://www.api-football.com free tier, 100 req/day.
@@ -42,13 +34,20 @@ jobs:
           # above — it merges its own bullets into what source-news.js just
           # wrote rather than overwriting data/live/*.json.
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          # FIX: set this repo Variable to "rapidapi" if your API_FOOTBALL_KEY
+          # was issued via the RapidAPI marketplace rather than signed up
+          # directly at api-football.com — the two use different hosts and
+          # header names, and pairing the wrong key with the wrong host
+          # silently 401s/403s (every team fails to resolve, every fixture
+          # ends up with 0/4 conditions groups). Defaults to native
+          # api-football.com behavior if unset.
+          API_FOOTBALL_PROVIDER: ${{ vars.API_FOOTBALL_PROVIDER }}
         run: node scripts/source-conditions.js
-
       - name: Commit sourced data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/teams data/h2h data/live state/team-id-cache.json state/unresolved-teams.json
+          git add data/teams data/h2h data/live state/team-id-cache.json state/unresolved-teams.json state/apifootball-id-cache.json state/geocode-cache.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
