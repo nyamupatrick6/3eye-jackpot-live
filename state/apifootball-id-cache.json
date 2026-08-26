@@ -28,5 +28,53 @@
   "us lecce": {
     "id": null,
     "resolvedAt": "2026-08-23T01:49:37.404Z"
+  },
+  "bradford city fc": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:37.582Z"
+  },
+  "burnley fc": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:38.046Z"
+  },
+  "viking fk": {
+    "id": 22860,
+    "resolvedName": "Viking FK W",
+    "city": null,
+    "resolvedAt": "2026-08-26T16:54:38.488Z"
+  },
+  "gnk dinamo zagreb": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:38.958Z"
+  },
+  "nk celje": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:40.753Z"
+  },
+  "sk slovan bratislava": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:41.220Z"
+  },
+  "viktoria plzen": {
+    "id": 7970,
+    "resolvedName": "Viktoria Plzeň U19",
+    "city": "Plzeň",
+    "resolvedAt": "2026-08-26T16:54:41.705Z"
+  },
+  "crvena zvezda": {
+    "id": 598,
+    "resolvedName": "FK Crvena Zvezda",
+    "city": "Beograd",
+    "resolvedAt": "2026-08-26T16:54:42.932Z"
+  },
+  "sk brann": {
+    "id": null,
+    "resolvedAt": "2026-08-26T16:54:46.855Z"
+  },
+  "paok": {
+    "id": 619,
+    "resolvedName": "PAOK",
+    "city": "Thessaloníki",
+    "resolvedAt": "2026-08-26T16:54:47.293Z"
   }
 }

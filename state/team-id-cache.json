@@ -353,5 +353,145 @@
     "id": "133603",
     "resolvedName": "Sunderland",
     "resolvedAt": "2026-08-21T00:28:24.420Z"
+  },
+  "bradford city fc": {
+    "id": "134189",
+    "resolvedName": "Bradford City",
+    "resolvedAt": "2026-08-26T16:52:22.530Z"
+  },
+  "burnley fc": {
+    "id": "133623",
+    "resolvedName": "Burnley",
+    "resolvedAt": "2026-08-26T16:52:23.932Z"
+  },
+  "viking fk": {
+    "id": "134570",
+    "resolvedName": "Viking",
+    "resolvedAt": "2026-08-26T16:52:25.325Z"
+  },
+  "gnk dinamo zagreb": {
+    "id": "133961",
+    "resolvedName": "Dinamo Zagreb",
+    "resolvedAt": "2026-08-26T16:52:26.719Z"
+  },
+  "nk celje": {
+    "id": "134318",
+    "resolvedName": "Celje",
+    "resolvedAt": "2026-08-26T16:52:28.073Z"
+  },
+  "sk slovan bratislava": {
+    "id": "134090",
+    "resolvedName": "Slovan Bratislava",
+    "resolvedAt": "2026-08-26T16:52:29.447Z"
+  },
+  "viktoria plzen": {
+    "id": "134015",
+    "resolvedName": "Viktoria Plzeň",
+    "resolvedAt": "2026-08-26T16:52:30.775Z"
+  },
+  "crvena zvezda": {
+    "id": "133987",
+    "resolvedName": "Crvena Zvezda",
+    "resolvedAt": "2026-08-26T16:52:32.119Z"
+  },
+  "sk brann": {
+    "id": "134571",
+    "resolvedName": "Brann",
+    "resolvedAt": "2026-08-26T16:52:33.469Z"
+  },
+  "paok": {
+    "id": "133749",
+    "resolvedName": "PAOK",
+    "resolvedAt": "2026-08-26T16:52:34.811Z"
+  },
+  "fc st. gallen 1879": {
+    "id": "134406",
+    "resolvedName": "St. Gallen",
+    "resolvedAt": "2026-08-26T16:52:36.937Z"
+  },
+  "fc nordsjaelland": {
+    "id": "133890",
+    "resolvedName": "FC Nordsjælland",
+    "resolvedAt": "2026-08-26T16:52:38.273Z"
+  },
+  "fk jablonec": {
+    "id": "134395",
+    "resolvedName": "Jablonec",
+    "resolvedAt": "2026-08-26T16:52:39.610Z"
+  },
+  "glasgow rangers": {
+    "id": "133642",
+    "resolvedName": "Rangers",
+    "resolvedAt": "2026-08-26T16:52:40.947Z"
+  },
+  "hibernian fc": {
+    "id": "133646",
+    "resolvedName": "Hibernian",
+    "resolvedAt": "2026-08-26T16:52:42.283Z"
+  },
+  "kaa gent": {
+    "id": "133781",
+    "resolvedName": "Gent",
+    "resolvedAt": "2026-08-26T16:52:43.617Z"
+  },
+  "hnk rijeka": {
+    "id": "134399",
+    "resolvedName": "Rijeka",
+    "resolvedAt": "2026-08-26T16:52:44.957Z"
+  },
+  "fc midtjylland": {
+    "id": "133891",
+    "resolvedName": "FC Midtjylland",
+    "resolvedAt": "2026-08-26T16:52:46.294Z"
+  },
+  "fc ararat armenia": {
+    "id": "137892",
+    "resolvedName": "Ararat-Armenia",
+    "resolvedAt": "2026-08-26T16:52:47.671Z"
+  },
+  "cs universitatea craiova": {
+    "id": "156870",
+    "resolvedName": "SCM U Craiova",
+    "resolvedAt": "2026-08-26T16:52:49.004Z"
+  },
+  "fc thun": {
+    "id": "134394",
+    "resolvedName": "Thun",
+    "resolvedAt": "2026-08-26T16:52:50.340Z"
+  },
+  "ferencvaros": {
+    "id": "134620",
+    "resolvedName": "Ferencváros",
+    "resolvedAt": "2026-08-26T16:52:53.014Z"
+  },
+  "trabzonspor": {
+    "id": "133796",
+    "resolvedName": "Trabzonspor",
+    "resolvedAt": "2026-08-26T16:52:54.376Z"
+  },
+  "maccabi tel aviv fc": {
+    "id": "134315",
+    "resolvedName": "Maccabi Tel Aviv",
+    "resolvedAt": "2026-08-26T16:52:55.721Z"
+  },
+  "fc lugano": {
+    "id": "136037",
+    "resolvedName": "Lugano",
+    "resolvedAt": "2026-08-26T16:52:57.061Z"
+  },
+  "fk borac banja luka": {
+    "id": "137938",
+    "resolvedName": "Borac Banja Luka",
+    "resolvedAt": "2026-08-26T16:52:58.401Z"
+  },
+  "vikingur reykjavik": {
+    "id": "137974",
+    "resolvedName": "Víkingur Reykjavík",
+    "resolvedAt": "2026-08-26T16:52:59.740Z"
+  },
+  "fk partizan belgrade": {
+    "id": "133960",
+    "resolvedName": "Partizan Belgrade",
+    "resolvedAt": "2026-08-26T16:53:01.076Z"
   }
 }
