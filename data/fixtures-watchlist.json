@@ -1,24 +1,96 @@
 {
   "notes": "Written by the Tracker's PUSH FIXTURES action.",
-  "generatedAt": "2026-08-22T18:38:16.022Z",
+  "generatedAt": "2026-08-26T13:13:45.120Z",
   "fixtures": [
     {
-      "home": "Brighton",
-      "away": "Aston Villa",
-      "date": "23/08/26 16:00",
-      "league": "Engla - Premier League"
+      "home": "Bradford City FC",
+      "away": "Burnley FC",
+      "date": "26/08/26 21:45",
+      "league": "England - EFL Cup"
     },
     {
-      "home": "Essen",
-      "away": "FC St. Pauli",
-      "date": "23/08/26 19:00",
-      "league": "Germany - DFB Pokal"
+      "home": "Viking FK",
+      "away": "GNK Dinamo Zagreb",
+      "date": "26/08/26 21:45",
+      "league": "England - EFL Cup"
     },
     {
-      "home": "Venezia FC",
-      "away": "US Lecce",
-      "date": "23/08/26 19:30",
-      "league": "Italy - Serie A"
+      "home": "NK Celje",
+      "away": "SK Slovan Bratislava",
+      "date": "26/08/26 21:45",
+      "league": "England - EFL Cup"
+    },
+    {
+      "home": "Viktoria Plzen",
+      "away": "Crvena Zvezda",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "SK Brann",
+      "away": "PAOK",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "FC St. Gallen 1879",
+      "away": "FC Nordsjaelland",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "FK Jablonec",
+      "away": "Glasgow Rangers",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Hibernian FC",
+      "away": "KAA Gent",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "HNK Rijeka",
+      "away": "FC Midtjylland",
+      "date": "27/08/26 20:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Fc Ararat Armenia",
+      "away": "CS Universitatea Craiova",
+      "date": "27/08/26 19:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "FC Thun",
+      "away": "KKS Lech Poznan",
+      "date": "27/08/26 21:00",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Ferencvaros",
+      "away": "Trabzonspor",
+      "date": "27/08/26 21:30",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Maccabi Tel Aviv FC",
+      "away": "FC Lugano",
+      "date": "27/08/26 21:30",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Fk Borac Banja Luka",
+      "away": "Vikingur Reykjavik",
+      "date": "27/08/26 21:30",
+      "league": "I - UEFA Europa League"
+    },
+    {
+      "home": "Fk Partizan Belgrade",
+      "away": "Getafe CF",
+      "date": "27/08/26 21:30",
+      "league": "I - UEFA Europa League"
     }
   ]
 }
