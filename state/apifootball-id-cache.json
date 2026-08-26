@@ -76,5 +76,77 @@
     "resolvedName": "PAOK",
     "city": "Thessaloníki",
     "resolvedAt": "2026-08-26T16:54:47.293Z"
+  },
+  "fc st. gallen 1879": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:16:55.558Z"
+  },
+  "fc nordsjaelland": {
+    "id": 398,
+    "resolvedName": "FC Nordsjaelland",
+    "city": "Farum",
+    "resolvedAt": "2026-08-26T23:16:56.048Z"
+  },
+  "fk jablonec": {
+    "id": 1122,
+    "resolvedName": "FK Jablonec",
+    "city": "Jablonec nad Nisou",
+    "resolvedAt": "2026-08-26T23:16:58.711Z"
+  },
+  "glasgow rangers": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:16:59.505Z"
+  },
+  "hibernian fc": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:17:01.919Z"
+  },
+  "kaa gent": {
+    "id": 19685,
+    "resolvedName": "KAA Gent II",
+    "city": "Oostakker",
+    "resolvedAt": "2026-08-26T23:17:02.409Z"
+  },
+  "hnk rijeka": {
+    "id": 561,
+    "resolvedName": "HNK Rijeka",
+    "city": "Rijeka",
+    "resolvedAt": "2026-08-26T23:17:04.566Z"
+  },
+  "fc midtjylland": {
+    "id": 397,
+    "resolvedName": "FC Midtjylland",
+    "city": "Herning",
+    "resolvedAt": "2026-08-26T23:17:05.330Z"
+  },
+  "fc ararat armenia": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:17:19.214Z"
+  },
+  "cs universitatea craiova": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:17:19.708Z"
+  },
+  "fc thun": {
+    "id": 1012,
+    "resolvedName": "FC Thun",
+    "city": "Thun",
+    "resolvedAt": "2026-08-26T23:17:20.189Z"
+  },
+  "kks lech poznan": {
+    "id": null,
+    "resolvedAt": "2026-08-26T23:17:21.419Z"
+  },
+  "ferencvaros": {
+    "id": 651,
+    "resolvedName": "Ferencvarosi TC",
+    "city": "Budapest",
+    "resolvedAt": "2026-08-26T23:17:23.879Z"
+  },
+  "trabzonspor": {
+    "id": 998,
+    "resolvedName": "Trabzonspor",
+    "city": "Trabzon",
+    "resolvedAt": "2026-08-26T23:17:24.641Z"
   }
 }
