@@ -148,5 +148,33 @@
     "resolvedName": "Trabzonspor",
     "city": "Trabzon",
     "resolvedAt": "2026-08-26T23:17:24.641Z"
+  },
+  "maccabi tel aviv fc": {
+    "id": null,
+    "resolvedAt": "2026-08-27T08:52:17.628Z"
+  },
+  "fc lugano": {
+    "id": 606,
+    "resolvedName": "FC Lugano",
+    "city": "Lugano",
+    "resolvedAt": "2026-08-27T08:52:18.109Z"
+  },
+  "fk borac banja luka": {
+    "id": null,
+    "resolvedAt": "2026-08-27T08:52:20.822Z"
+  },
+  "vikingur reykjavik": {
+    "id": 278,
+    "resolvedName": "Vikingur Reykjavik",
+    "city": "Reykjavík",
+    "resolvedAt": "2026-08-27T08:52:21.297Z"
+  },
+  "fk partizan belgrade": {
+    "id": null,
+    "resolvedAt": "2026-08-27T08:52:23.516Z"
+  },
+  "getafe cf": {
+    "id": null,
+    "resolvedAt": "2026-08-27T08:52:24.018Z"
   }
 }
